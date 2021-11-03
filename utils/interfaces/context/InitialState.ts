@@ -1,1 +1,3 @@
-export interface InitialState {}
+export interface InitialState {
+  sideMenuState: boolean;
+}

@@ -6,7 +6,7 @@ import { createStore } from "redux";
 import reducer from "../context/reducer/intex";
 
 // Theming
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "../utils/theming/theme";
 import Layout from "../components/Layout";
 
@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <Layout>
           <Component {...pageProps} />
         </Layout>
