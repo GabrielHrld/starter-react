@@ -1,11 +1,9 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
+import React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -13,17 +11,49 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import CollapsableProfileMenu from "../atoms/CollapsableProfileMenu";
 import MobileNavbarMenu from "../atoms/MobileNavbarMenu";
 import LogoContainer from "../atoms/LogoContainer";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
+//  REDUX
 import { connect } from "react-redux";
 import { InitialState } from "../../utils/interfaces/context/InitialState";
 import { handleSideMenuAction } from "../../context/actions/index";
 
+import { styled } from "@mui/material/styles";
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})<AppBarProps>(({ theme, open }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
 interface Props {
   sideMenuState: boolean;
+  open?: boolean;
   handleSideMenuAction: () => never;
 }
 
-const Navbar: React.FC<Props> = ({ sideMenuState, handleSideMenuAction }) => {
+const Navbar: React.FC<Props> = ({
+  sideMenuState,
+  handleSideMenuAction,
+  open,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -55,24 +85,19 @@ const Navbar: React.FC<Props> = ({ sideMenuState, handleSideMenuAction }) => {
   const mobileMenuId = "primary-search-account-menu-mobile";
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box>
+      <AppBar position="fixed" open={sideMenuState}>
         <Toolbar>
-          <LogoContainer to="/" />
-
           <IconButton
-            size="medium"
-            edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{
-              ml: 2,
-              ":hover": { bgcolor: "primary.light" },
-            }}
             onClick={handleSideMenu}
+            edge="start"
+            sx={{ mr: 2, ...(sideMenuState && { display: "none" }) }}
           >
-            {sideMenuState ? <ArrowForwardIosIcon /> : <ArrowBackIosNewIcon />}
+            <ArrowForwardIosIcon />
           </IconButton>
+          <LogoContainer to="/" />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -119,6 +144,7 @@ const Navbar: React.FC<Props> = ({ sideMenuState, handleSideMenuAction }) => {
           </Box>
         </Toolbar>
       </AppBar>
+
       <MobileNavbarMenu
         anchorEl={mobileMoreAnchorEl}
         id={mobileMenuId}

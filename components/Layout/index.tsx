@@ -1,39 +1,60 @@
-import { Button, Container, Grid, Box } from "@mui/material";
-import React, { ReactNode, useState } from "react";
+import React from "react";
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+
+import Navbar from "../molecules/Navbar";
 import { connect } from "react-redux";
 import { InitialState } from "../../utils/interfaces/context/InitialState";
-import Navbar from "../molecules/Navbar";
 import { handleSideMenuAction } from "../../context/actions/index";
+import SideBar from "../organisms/SideBar";
+
+const drawerWidth = 240;
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+  open?: boolean;
+}>(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(open && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  }),
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   sideMenuState: boolean;
-  handleSideMenuAction?: () => void;
 }
 
-const Layout: React.FC<Props> = ({
-  children,
-  sideMenuState,
-  handleSideMenuAction,
-}) => {
-  const handleState = () => handleSideMenuAction && handleSideMenuAction();
+const Layout: React.FC<Props> = ({ children, sideMenuState }) => {
   return (
-    <>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
       <Navbar />
-      <Box sx={{ display: "flex", width: "100vw" }}>
-        <Box
-          sx={{
-            width: sideMenuState ? "50%" : "25%",
-            transition: ".3s all ease",
-          }}
-        >
-          <Box></Box>
-        </Box>
-        <Box>
-          {children} <Button onClick={handleState}>click</Button>
-        </Box>
-      </Box>
-    </>
+      <SideBar open={sideMenuState} />
+      <Main open={sideMenuState}>
+        <DrawerHeader />
+        {children}
+      </Main>
+    </Box>
   );
 };
 
@@ -47,5 +68,5 @@ const mapDispatchToProps = {
   handleSideMenuAction,
 };
 
-//@ts-ignore
+// @ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
