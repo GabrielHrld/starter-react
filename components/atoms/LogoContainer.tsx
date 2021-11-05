@@ -4,15 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { createStyles, makeStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    box: {
-      cursor: "pointer",
-    },
-  })
-);
-
 interface Props {
   to: string;
   width?: number;
@@ -20,12 +11,15 @@ interface Props {
 }
 
 const LogoContainer: React.FC<Props> = ({ to, width, height }) => {
-  const classes = useStyles();
-
   return (
-    <Box className={classes.box}>
-      <Link href={to}>
-        <Image src="/assets/images/logo_origin.png" width={160} height={48} />
+    <Box sx={{ cursor: "pointer" }}>
+      <Link href={to} passHref>
+        <Image
+          src="/assets/images/logo_origin.png"
+          alt="logo"
+          width={160}
+          height={48}
+        />
       </Link>
     </Box>
   );

@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { InitialState } from "../../utils/interfaces/context/InitialState";
 import { handleSideMenuAction } from "../../context/actions/index";
 import SideBar from "../organisms/SideBar";
+import Headband from "../molecules/Headband";
 
 const drawerWidth = 240;
 
@@ -15,7 +16,6 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -28,6 +28,12 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     }),
     marginLeft: 0,
   }),
+}));
+
+const Section = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open",
+})<{ open?: boolean }>(({ theme, open }) => ({
+  padding: theme.spacing(3),
 }));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -50,9 +56,11 @@ const Layout: React.FC<Props> = ({ children, sideMenuState }) => {
       <CssBaseline />
       <Navbar />
       <SideBar open={sideMenuState} />
+
       <Main open={sideMenuState}>
         <DrawerHeader />
-        {children}
+        <Headband />
+        <Section>{children}</Section>
       </Main>
     </Box>
   );

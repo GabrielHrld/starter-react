@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Typography } from "@mui/material";
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +11,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Hello world</h1>
+      <Typography component="h1" variant="h1">
+        INDEX
+      </Typography>
     </>
   );
 };
