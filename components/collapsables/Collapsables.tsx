@@ -14,7 +14,7 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import List from "@mui/material/List";
 import { ExpandLess, ExpandMore, StarBorder } from "@mui/icons-material";
 import { useRouter } from "next/dist/client/router";
-import { Config } from "../../../utils/Config";
+import { Config } from "../../utils/Config";
 
 export const UiKitCollapsable = () => {
   const router = useRouter();

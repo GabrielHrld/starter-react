@@ -3,12 +3,12 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import Navbar from "../molecules/Navbar";
+import Navbar from "../navbar/Navbar";
 import { connect } from "react-redux";
 import { InitialState } from "../../utils/interfaces/context/InitialState";
 import { handleSideMenuAction } from "../../context/actions/index";
-import SideBar from "../organisms/SideBar";
-import Headband from "../molecules/Headband";
+import SideBar from "../sideMenu/SideMenu";
+import Headband from "../headband/Headband";
 
 const drawerWidth = 240;
 

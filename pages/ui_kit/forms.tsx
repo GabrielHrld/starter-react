@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Card from "../../components/atoms/Card";
+import Card from "../../components/card/Card";
 import { Grid } from "@mui/material";
-import Input, { InputProps } from "../../components/atoms/Input";
+import Input, { InputProps } from "../../components/Input";
 
 const mockInputs: InputProps[] = [
   {
@@ -19,6 +19,19 @@ const mockInputs: InputProps[] = [
     label: "Input email",
     type: "email",
     id: "field3",
+  },
+  {
+    label: "Radio items",
+    isRadio: true,
+    id: "radiofield",
+    "aria-label": "aria-label-radio",
+    radioItems: [
+      {
+        label: "foo",
+        value: "foo",
+      },
+      { label: "faa", value: "faa" },
+    ],
   },
   {
     label: "Text Area",
@@ -43,6 +56,8 @@ const forms = () => {
                     id={input.id}
                     width="90%"
                     isTextArea={input.isTextArea}
+                    isRadio={input.isRadio}
+                    radioItems={input.radioItems}
                   />
                 ))}
               </Grid>

@@ -8,9 +8,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import CollapsableProfileMenu from "../atoms/collapsables/CollapsableProfileMenu";
-import MobileNavbarMenu from "../atoms/MobileNavbarMenu";
-import LogoContainer from "../atoms/LogoContainer";
+import CollapsableProfileMenu from "../collapsables/CollapsableProfileMenu";
+import MobileNavbarMenu from "../MobileNavbarMenu";
+import LogoContainer from "../logos/LogoContainer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 
 //  REDUX

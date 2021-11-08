@@ -8,6 +8,10 @@ import {
   TextareaAutosize,
   TextareaAutosizeProps,
   RadioProps,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 
 const TextArea = styled(TextareaAutosize)(({ theme }: { theme?: Theme }) => ({
@@ -76,6 +80,15 @@ export interface InputProps extends TextareaAutosizeProps {
   variant?: "standard" | "filled" | "outlined";
   width?: string;
   isTextArea?: boolean;
+  isRadio?: boolean;
+  "aria-label"?: string;
+  name?: string;
+  radioItems?: RadioItem[];
+}
+
+interface RadioItem {
+  label: string;
+  value: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -86,7 +99,13 @@ const Input: React.FC<InputProps> = ({
   variant = "outlined",
   width = "80%",
   isTextArea = false,
+  isRadio = false,
+  "aria-label": ariaLabel,
+  name,
+  radioItems,
 }) => {
+  if (isTextArea && isRadio)
+    throw new Error("Two types of inputs at once isn't allowed");
   const theme = useTheme();
 
   if (isTextArea) {
@@ -107,6 +126,36 @@ const Input: React.FC<InputProps> = ({
           {label}
         </InputLabel>
         <TextArea placeholder={placeholder} id={id} minRows={6} />
+      </FormControl>
+    );
+  }
+
+  if (isRadio) {
+    const [value, setValue] = React.useState<string | null>(null);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue((event.target as HTMLInputElement).value);
+    };
+    return (
+      <FormControl component="fieldset">
+        <FormLabel component="legend">{label}</FormLabel>
+        <RadioGroup
+          aria-label={ariaLabel}
+          name={name}
+          value={value}
+          onChange={handleChange}
+        >
+          {radioItems?.map((item, index) => {
+            return (
+              <FormControlLabel
+                key={index}
+                value={item.value}
+                control={<Radio />}
+                label={item.label}
+              />
+            );
+          })}
+        </RadioGroup>
       </FormControl>
     );
   }

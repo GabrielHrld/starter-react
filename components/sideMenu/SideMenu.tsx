@@ -7,7 +7,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { styled, useTheme } from "@mui/material/styles";
 import { connect } from "react-redux";
 import { handleSideMenuAction } from "../../context/actions/index";
-import { UiKitCollapsable } from "../atoms/collapsables/Collapsables";
+import { UiKitCollapsable } from "../collapsables/Collapsables";
 
 const drawerWidth = 240;
 
