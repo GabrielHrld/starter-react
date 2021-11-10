@@ -6,11 +6,15 @@ import Typography from "@mui/material/Typography";
 
 // Icons
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import _Button from "../buttons/Buttons";
+import { useRouter } from "next/dist/client/router";
+import { paths } from "../../utils/paths";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: "flex",
+      justifyContent: "space-between",
       padding: `${theme.spacing(3)} ${theme.spacing(4)}`,
     },
     titlesContainer: {
@@ -25,23 +29,50 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.h6.fontSize,
       color: theme.palette.text.disabled,
     },
+    buttonContainer: {},
   })
 );
 
 const Headband = () => {
   const classes = useStyles();
+  const router = useRouter();
+  const sectionPath: string = router.query.section as string;
 
   return (
     <>
       <Box className={classes.container}>
         <Box className={classes.titlesContainer}>
           <Typography className={classes.title} component="h3">
-            Heading
+            {
+              // @ts-ignore
+              paths[sectionPath].main
+            }
           </Typography>
           <KeyboardArrowRightIcon fontSize="small" color="disabled" />
           <Typography className={classes.subtitle} component="h4">
-            Formularios
+            {
+              // @ts-ignore
+              paths[sectionPath].sub
+            }
           </Typography>
+        </Box>
+        <Box className={classes.buttonContainer}>
+          <_Button
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{ marginRight: "1rem", borderRadius: "50px" }}
+          >
+            Guardar
+          </_Button>
+          <_Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            sx={{ marginRight: "1rem", borderRadius: "50px" }}
+          >
+            Enviar
+          </_Button>
         </Box>
       </Box>
       <Divider />

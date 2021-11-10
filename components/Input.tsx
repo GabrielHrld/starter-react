@@ -106,6 +106,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   if (isTextArea && isRadio)
     throw new Error("Two types of inputs at once isn't allowed");
+  const [value, setValue] = React.useState<string | null>(null);
   const theme = useTheme();
 
   if (isTextArea) {
@@ -131,8 +132,6 @@ const Input: React.FC<InputProps> = ({
   }
 
   if (isRadio) {
-    const [value, setValue] = React.useState<string | null>(null);
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setValue((event.target as HTMLInputElement).value);
     };

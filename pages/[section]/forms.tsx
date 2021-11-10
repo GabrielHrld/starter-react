@@ -1,8 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Card from "../../components/card/Card";
 import { Grid } from "@mui/material";
 import Input, { InputProps } from "../../components/Input";
+import { useTheme } from "@mui/material/styles";
+
+// component needed be rendered in client-side
+const ChartContainer = dynamic(
+  () => import("../../components/charts/ChartContainer"),
+  {
+    ssr: false,
+  }
+);
 
 const mockInputs: InputProps[] = [
   {
@@ -77,8 +87,21 @@ const forms = () => {
             </Grid>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Card></Card>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          display="flex"
+          flexDirection="column"
+          height="100%"
+          justifyContent="space-between"
+        >
+          <Card>
+            <ChartContainer type="line" />
+          </Card>
+          <Card>
+            <ChartContainer type="bar" />
+          </Card>
         </Grid>
       </Grid>
     </>

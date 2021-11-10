@@ -9,7 +9,13 @@ interface Props {}
 const _Card: React.FC<Props> = ({ children }) => {
   const theme = useTheme();
   return (
-    <Box sx={{ minWidth: 275, px: theme.spacing(1) }}>
+    <Box
+      sx={{
+        minWidth: 275,
+        px: theme.spacing(1),
+        marginBottom: theme.spacing(2),
+      }}
+    >
       <Card variant="elevation" elevation={4}>
         <CardContent>{children}</CardContent>
       </Card>
