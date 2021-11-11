@@ -33,27 +33,27 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Headband = () => {
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const Headband: React.FC<Props> = ({ title, subtitle }) => {
   const classes = useStyles();
   const router = useRouter();
   const sectionPath: string = router.query.section as string;
+  const subSectionPath: string = router.query.subSection as string;
 
   return (
     <>
       <Box className={classes.container}>
         <Box className={classes.titlesContainer}>
           <Typography className={classes.title} component="h3">
-            {
-              // @ts-ignore
-              paths[sectionPath].main
-            }
+            {title}
           </Typography>
           <KeyboardArrowRightIcon fontSize="small" color="disabled" />
           <Typography className={classes.subtitle} component="h4">
-            {
-              // @ts-ignore
-              paths[sectionPath].sub
-            }
+            {subtitle}
           </Typography>
         </Box>
         <Box className={classes.buttonContainer}>

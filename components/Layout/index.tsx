@@ -20,7 +20,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
+  // marginLeft: `calc(${theme.spacing(7)} + 1px)`,
   ...(open && {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
@@ -33,7 +33,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 const Section = styled("main", {
   shouldForwardProp: (prop) => prop !== "open",
 })<{ open?: boolean }>(({ theme, open }) => ({
-  padding: theme.spacing(3),
+  // padding: theme.spacing(3),
 }));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -59,7 +59,7 @@ const Layout: React.FC<Props> = ({ children, sideMenuState }) => {
 
       <Main open={sideMenuState}>
         <DrawerHeader />
-        <Headband />
+        {/* <Headband /> */}
         <Section>{children}</Section>
       </Main>
     </Box>

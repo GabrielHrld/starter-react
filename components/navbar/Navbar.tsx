@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -34,9 +35,10 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   boxShadow: "none",
+
   ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
+    // width: `calc(100% - ${drawerWidth}px)`,
+    // marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -89,16 +91,16 @@ const Navbar: React.FC<Props> = ({
     <Box>
       <AppBar position="fixed" open={sideMenuState}>
         <Toolbar>
+          <LogoContainer to="/" />
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleSideMenu}
             edge="start"
-            sx={{ mr: 2, ...(sideMenuState && { display: "none" }) }}
+            sx={{ ml: 2 }}
           >
-            <ArrowForwardIosIcon />
+            {sideMenuState ? <ArrowBackIosNewIcon /> : <ArrowForwardIosIcon />}
           </IconButton>
-          <LogoContainer to="/" />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

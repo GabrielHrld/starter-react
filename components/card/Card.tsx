@@ -2,11 +2,13 @@ import { CardContent } from "@mui/material";
 import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, CSSObject } from "@mui/material/styles";
 
-interface Props {}
+interface Props {
+  sx?: CSSObject;
+}
 
-const _Card: React.FC<Props> = ({ children }) => {
+const _Card: React.FC<Props> = ({ children, sx }) => {
   const theme = useTheme();
   return (
     <Box
@@ -16,7 +18,7 @@ const _Card: React.FC<Props> = ({ children }) => {
         marginBottom: theme.spacing(2),
       }}
     >
-      <Card variant="elevation" elevation={4}>
+      <Card variant="elevation" elevation={4} sx={sx}>
         <CardContent>{children}</CardContent>
       </Card>
     </Box>

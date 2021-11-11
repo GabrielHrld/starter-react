@@ -23,7 +23,7 @@ export const UiKitCollapsable = () => {
   const handleClick = () => {
     setOpenCollapsable(!openCollapsable);
   };
-  console.log(router.pathname);
+
   return (
     <>
       <ListItemButton sx={{ maxHeight: "50px" }} onClick={handleClick}>
@@ -40,7 +40,7 @@ export const UiKitCollapsable = () => {
               <ListItemIcon>
                 <ListAltIcon
                   color={
-                    router.pathname == Config.paths.ui_kit && openCollapsable
+                    router.pathname.includes("forms") && openCollapsable
                       ? "secondary"
                       : "inherit"
                   }
@@ -51,12 +51,14 @@ export const UiKitCollapsable = () => {
           </Link>
         </List>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <NotificationsActiveIcon />
-            </ListItemIcon>
-            <ListItemText primary="Notificaciones" />
-          </ListItemButton>
+          <Link href="/ui_kit/buttons" passHref>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <NotificationsActiveIcon />
+              </ListItemIcon>
+              <ListItemText primary="Botones" />
+            </ListItemButton>
+          </Link>
         </List>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }}>

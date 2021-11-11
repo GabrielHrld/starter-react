@@ -1,10 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Card from "../../components/card/Card";
-import { Grid } from "@mui/material";
-import Input, { InputProps } from "../../components/Input";
-import { useTheme } from "@mui/material/styles";
+import { Grid, Theme } from "@mui/material";
+import React from "react";
+import { makeStyles } from "@mui/styles";
+
+import InputsContainer from "../../components/pages/forms/InputsContainer";
+import AutocompleteContainer from "../../components/pages/forms/AutocompleteContainer";
+import DatepickerContainer from "../../components/pages/forms/DatepickerContainer";
+import ControlsContainer from "../../components/pages/forms/ControlsContainer";
+import Headband from "../../components/headband/Headband";
+import Box from "@mui/material/Box";
+import { styled } from "@mui/material/styles";
 
 // component needed be rendered in client-side
 const ChartContainer = dynamic(
@@ -14,96 +21,60 @@ const ChartContainer = dynamic(
   }
 );
 
-const mockInputs: InputProps[] = [
-  {
-    label: "Input Text",
-    type: "text",
-    id: "field1",
+// STYLES
+const Section = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open",
+})<{ open?: boolean }>(({ theme, open }) => ({
+  padding: theme.spacing(3),
+}));
+
+const useStyles = makeStyles<Theme>((theme) => ({
+  root: {
+    "margin-bottom": theme.spacing(6),
   },
-  {
-    label: "Input Number",
-    type: "number",
-    id: "field2",
+  table: {
+    border: "none",
   },
-  {
-    label: "Input email",
-    type: "email",
-    id: "field3",
-  },
-  {
-    label: "Radio items",
-    isRadio: true,
-    id: "radiofield",
-    "aria-label": "aria-label-radio",
-    radioItems: [
-      {
-        label: "foo",
-        value: "foo",
-      },
-      { label: "faa", value: "faa" },
-    ],
-  },
-  {
-    label: "Text Area",
-    id: "field4",
-    isTextArea: true,
-  },
-];
+}));
 
 const forms = () => {
+  const classes = useStyles();
+
   return (
     <>
-      <Grid container>
-        <Grid item xs={12} md={8}>
-          <Card>
-            <Grid container>
-              <Grid item md={5}>
-                {mockInputs.map((input, index) => (
-                  <Input
-                    key={index}
-                    label={input.label}
-                    type={input.type}
-                    id={input.id}
-                    width="90%"
-                    isTextArea={input.isTextArea}
-                    isRadio={input.isRadio}
-                    radioItems={input.radioItems}
-                  />
-                ))}
-              </Grid>
-              <Grid item md={2}></Grid>
-              <Grid item md={5}>
-                {mockInputs.map((input, index) => (
-                  <Input
-                    key={index}
-                    width="90%"
-                    label={input.label}
-                    type={input.type}
-                    id={`${input.id}-2`}
-                    isTextArea={input.isTextArea}
-                  />
-                ))}
-              </Grid>
-            </Grid>
-          </Card>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={4}
-          display="flex"
-          flexDirection="column"
-          height="100%"
-          justifyContent="space-between"
-        >
-          <Card>
+      <Headband title="UI Kit" subtitle="Formularios" />
+      <Section>
+        <Grid container>
+          <Grid item xs={12} md={8}>
+            {/* INPUTS */}
+            <InputsContainer />
+
+            {/* AUTOCOMPLETE */}
+            <AutocompleteContainer />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            display="flex"
+            flexDirection="column"
+            height="100%"
+            justifyContent="space-between"
+          >
+            {/* DATE PICKERS */}
+            <DatepickerContainer />
+
+            {/* Controls */}
+            <ControlsContainer />
+            {/* <Card>
             <ChartContainer type="line" />
           </Card>
           <Card>
             <ChartContainer type="bar" />
-          </Card>
+          </Card> */}
+          </Grid>
         </Grid>
-      </Grid>
+      </Section>
     </>
   );
 };
