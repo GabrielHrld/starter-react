@@ -9,6 +9,7 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
+import TimelineIcon from "@mui/icons-material/Timeline";
 
 //
 import List from "@mui/material/List";
@@ -61,12 +62,14 @@ export const UiKitCollapsable = () => {
           </Link>
         </List>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <CalendarViewDayIcon />
-            </ListItemIcon>
-            <ListItemText primary="Modales" />
-          </ListItemButton>
+          <Link href="/ui_kit/charts" passHref>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <TimelineIcon />
+              </ListItemIcon>
+              <ListItemText primary="Gráficos" />
+            </ListItemButton>
+          </Link>
         </List>
       </Collapse>
     </>

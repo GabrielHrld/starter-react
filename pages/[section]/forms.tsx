@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import { Grid, Theme } from "@mui/material";
 import React from "react";
 import { makeStyles } from "@mui/styles";
@@ -10,23 +9,7 @@ import AutocompleteContainer from "../../components/pages/forms/AutocompleteCont
 import DatepickerContainer from "../../components/pages/forms/DatepickerContainer";
 import ControlsContainer from "../../components/pages/forms/ControlsContainer";
 import Headband from "../../components/headband/Headband";
-import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
-
-// component needed be rendered in client-side
-const ChartContainer = dynamic(
-  () => import("../../components/charts/ChartContainer"),
-  {
-    ssr: false,
-  }
-);
-
-// STYLES
-const Section = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open?: boolean }>(({ theme, open }) => ({
-  padding: theme.spacing(3),
-}));
+import Section from "../../components/Layout/Section";
 
 const useStyles = makeStyles<Theme>((theme) => ({
   root: {
@@ -66,12 +49,6 @@ const forms = () => {
 
             {/* Controls */}
             <ControlsContainer />
-            {/* <Card>
-            <ChartContainer type="line" />
-          </Card>
-          <Card>
-            <ChartContainer type="bar" />
-          </Card> */}
           </Grid>
         </Grid>
       </Section>

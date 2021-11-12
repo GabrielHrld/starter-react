@@ -13,9 +13,9 @@ export type ColorTypes =
   | "error"
   | "success"
   | "warning"
-  | "default"
   | "inherit"
-  | "info";
+  | "info"
+  | undefined;
 
 type ButtonProps = { color: ColorTypes } & Omit<MuiButtonProps, "color">;
 
@@ -62,7 +62,7 @@ const useStyles = makeStyles<Theme>((theme) =>
     outlinedError: {
       borderColor: `${darken(theme.palette.error.main, 0.2)}`,
       color: `${darken(theme.palette.error.main, 0.2)}`,
-      boxShadow:theme.shadows[3],
+      boxShadow: theme.shadows[3],
       borderWidth: 1,
       "&:hover": {
         backgroundColor: theme.palette.error.dark,
@@ -81,7 +81,7 @@ const useStyles = makeStyles<Theme>((theme) =>
     outlinedWarning: {
       borderColor: `${darken(theme.palette.warning.main, 0.2)}`,
       color: `${darken(theme.palette.warning.main, 0.2)}`,
-      boxShadow:theme.shadows[3],
+      boxShadow: theme.shadows[3],
       borderWidth: 1,
       "&:hover": {
         backgroundColor: theme.palette.warning.dark,
@@ -112,7 +112,7 @@ const useStyles = makeStyles<Theme>((theme) =>
       "&:disabled": {
         borderColor: `${darken(theme.palette.info.main, 0.2)}`,
         color: `${darken(theme.palette.info.main, 0.2)}`,
-        boxShadow:theme.shadows[3],
+        boxShadow: theme.shadows[3],
         opacity: ".4",
       },
     },
@@ -127,7 +127,7 @@ const useStyles = makeStyles<Theme>((theme) =>
       "&:disabled": {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
-        boxShadow:theme.shadows[3],
+        boxShadow: theme.shadows[3],
         opacity: ".4",
       },
     },
@@ -149,7 +149,7 @@ const useStyles = makeStyles<Theme>((theme) =>
     containedError: {
       backgroundColor: theme.palette.error.main,
       color: theme.palette.error.contrastText,
-      boxShadow:theme.shadows[3],
+      boxShadow: theme.shadows[3],
       "&:hover": {
         backgroundColor: theme.palette.error.dark,
         boxShadow: theme.shadows[3],
@@ -267,22 +267,9 @@ const useStyles = makeStyles<Theme>((theme) =>
 const _Button: React.FC<ButtonProps> = ({ children, color, ...props }) => {
   const classes = useStyles();
   const className = classes?.[`${props.variant}${capitalize(color)}`];
-  const colorProp =
-  //@ts-ignore
-  ["inherit" | "primary" | "secondary" | "error" | "success" |"warning" |"info" |undefined,].indexOf(color) > -1
-      ? (color as
-          | "inherit"
-          | "primary"
-          | "secondary"
-          | "error"
-          | "success"
-          | "warning"
-          | "info"
-          | undefined)
-      : undefined;
 
   return (
-    <MuiButton {...props} color={colorProp} className={className}>
+    <MuiButton {...props} color={color} className={className}>
       {children}
     </MuiButton>
   );
